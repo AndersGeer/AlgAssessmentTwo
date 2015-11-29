@@ -48,8 +48,6 @@ public class RatingTest
 		Rating ratingNew = new Rating(models.Fixtures.users[1], models.Fixtures.movies[3], 1);
 
 	    assertEquals(rating1, rating1);
-	    System.out.println(rating1);
-	    System.out.println(rating2);
 	    assertEquals(rating1, rating2);
 	    assertNotEquals(rating1, ratingNew);
 	  } 

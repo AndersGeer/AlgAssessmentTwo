@@ -16,7 +16,7 @@ public class MovieTest
 	@Test
 	public void testCreate()
 	{
-		assertEquals("2012",twentyTwelve.name);
+		assertEquals("2012 (2011)",twentyTwelve.name);
 		assertEquals("www.2012.org",twentyTwelve.imdbLink);
 	}
 

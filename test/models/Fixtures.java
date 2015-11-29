@@ -2,27 +2,7 @@ package models;
 
 public class Fixtures
 {
-	public static boolean[] bools = 
-		{
-				true,
-				false,
-				false,
-				true,
-				false,
-				false,
-				true,
-				false,
-				false,
-				true,
-				false,
-				false,
-				true,
-				false,
-				false,
-				true,
-				false,
-				false
-		};
+
 	public static User[] users =
 		{
 				new User (1,"marge", "simpson", 41,"F", "Cook", 12345),
@@ -33,12 +13,12 @@ public class Fixtures
 
 	public static Movie[] movies =
 		{
-			new Movie (1,"Toy Story","ToystoryLINK IMDB",bools),
-			new Movie (2,"Lassie","LassieLINK IMDB",bools),
-			new Movie (3,"Smokey and the bandit","SmokeyAndTheBanditLINK IMDB",bools),
-			new Movie (4,"Shawshank redemption","Shawshank redemptionLINK IMDB",bools),
-			new Movie (5,"The hobbit","The hobbitLINK IMDB",bools),
-			new Movie (6,"Star wars","StarwarsLINK IMDB",bools)
+			new Movie (1,"Toy Story",1994,"ToystoryLINK IMDB"),
+			new Movie (2,"Lassie",1984,"LassieLINK IMDB"),
+			new Movie (3,"Smokey and the bandit",1989,"SmokeyAndTheBanditLINK IMDB"),
+			new Movie (4,"Shawshank redemption",2001,"Shawshank redemptionLINK IMDB"),
+			new Movie (5,"The hobbit",2006,"The hobbitLINK IMDB"),
+			new Movie (6,"Star wars",1979,"StarwarsLINK IMDB")
 		};
 
 	public static Rating[]ratings =
@@ -64,8 +44,19 @@ public class Fixtures
 				new Rating(users[3],movies[1],5),
 				new Rating(users[3],movies[3],1),
 				new Rating(users[3],movies[4],0),
-				new Rating(users[3],movies[5],0),
+				new Rating(users[3],movies[5],5),
 				
+				
+				//Movie 1, 4 votes, Total =  9 - avg = 2.25
+				//Movie 2, 3 votes, Total = 14 - avg = 4.6
+				//Movie 3, 1 votes, Total =  5 - avg = 5
+				//Movie 4, 4 votes, Total = 12 - avg = 3
+				//Movie 5, 4 votes, Total =  8 - avg = 2
+				//Movie 6, 3 votes, Total =  10 - avg = .33
+				
+				//User 2 User 1 similarity =  8 + 16 +  8 + 12 	= 44
+				//User 2 User 3 similarity =  0 + 12 + 16 		= 28
+				//User 2 User 4 similarity =  8 + 20 + 16 + 12 	= 46
 		};
 	
 	public static Rating[] ratingsByUserThree=
@@ -75,6 +66,11 @@ public class Fixtures
 				ratings[11],
 				ratings[12],
 				ratings[13]
+		};
+	
+	public static Movie[] reccomendationForUserTwo = 
+		{
+			movies[5]
 		};
 
 	

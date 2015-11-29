@@ -27,32 +27,29 @@ public class Main
 		{
 			reccApi.load();
 		}
+		if (!datastore.exists()) 
+		{
+			//Primary loads
+			usersRead();
+			moviesRead();
+			ratingsRead();
+			reccApi.store();
+		}
 	}
 
 
 	public static void main(String[] args) throws Exception 
 	{
-
-		//Start Imports - methods later in class.
-
-
-/*		usersRead();
-		moviesRead();
-		ratingsRead();
-		recc.store();*/
-
-
 		Main main = new Main();
 
 		Shell shell = ShellFactory.createConsoleShell("reccApi", "Welcome to recommender-console - ?help for instructions", main);
 		shell.commandLoop();
 
 		main.reccApi.store();
-
-
-
 	}
 
+	
+	//Commands
 	@Command(description="Get all users details")
 	public void getUsers ()
 	{
@@ -106,7 +103,6 @@ public class Main
 		reccApi.removeMovie(id);
 	}
 	
-	
 	@Command(description="Get all rating details")
 	public void getRatings ()
 	{
@@ -120,26 +116,25 @@ public class Main
 	{
 		reccApi.addRating(userId, movieId, rating);
 	}
-	
-	
 
 	@Command(description="Get top ten movies")
 	public void getTopTen ()
 	{
-		Collection<Movie> topTen = reccApi.getTopTen();
+		Collection<Movie> topTen = reccApi.getTopTen(10);
 		System.out.println(topTen);
 	}
-
-	private static boolean convertToBool(int parseInt) {
-		if (parseInt == 1) {
-			return true;
-		}
-		return false;
+	@Command(description="Get recommendations for user")
+	public void getRatingsForUser(@Param(name="User Id") int userId)
+	{
+		Collection<Movie> recommendedMovies = reccApi.getRecommendations(userId);
+		System.out.println(recommendedMovies);
 	}
+
+	
 
 	public static void usersRead() throws Exception
 	{
-		File usersFile = new File("DataSmall/users5.dat");
+		File usersFile = new File("DataBig/users.dat");
 		In inUsers = new In(usersFile);
 		//each field is separated(delimited) by a '|'
 		String delims = "[|]";
@@ -158,7 +153,7 @@ public class Main
 				int age = Integer.parseInt(userTokens[3]);
 				String gender = userTokens[4];
 				String occupation = userTokens[5];
-				int zipCode = Integer.parseInt(userTokens[6]);
+				//int zipCode = Integer.parseInt(userTokens[6]);
 				if (firstName.isEmpty() || lastName.isEmpty()) 
 				{
 					throw new Exception("Invalid member name: " + firstName + ", " + lastName);
@@ -170,15 +165,10 @@ public class Main
 				//				if (gender != "M" || gender != "F") 
 				//				{
 				//					throw new Exception("Invalid member gender: "+gender);
-				//				}
-				int length = (int)(Math.log10(zipCode)+1);
-				if (length != 5) 
-				{
-					throw new Exception("Invalid member zip: "+zipCode);
-				}
+				
 
 
-				User user = new User(firstName, lastName, age, gender, occupation, zipCode);
+				User user = new User(firstName, lastName, age, gender, occupation);
 				recc.addUser(user);
 
 
@@ -191,7 +181,7 @@ public class Main
 
 	public static void ratingsRead() throws Exception
 	{
-		File ratingFile = new File("DataSmall/ratings5.dat");
+		File ratingFile = new File("DataBig/ratings.dat");
 		In inRatings = new In(ratingFile);
 		//each field is separated(delimited) by a '|'
 		String delims = "[|]";
@@ -210,7 +200,7 @@ public class Main
 				int movieId = Integer.parseInt(ratingTokens[1]);
 				int rating = Integer.parseInt(ratingTokens[2]);
 				//Date timestamp = Date(ratingTokens[3]);
-				if (rating < 0 || rating > 5) 
+				if (rating < -5 || rating > 5) 
 				{
 					throw new Exception("Invalid rating: " + rating);
 				}
@@ -237,7 +227,7 @@ public class Main
 
 	public static void moviesRead() throws Exception
 	{
-		File moviesFile = new File("DataSmall/items5.dat");
+		File moviesFile = new File("DataBig/items.dat");
 		In inMovies = new In(moviesFile);
 		//each field is separated(delimited) by a '|'
 		String delims = "[|]";
@@ -255,35 +245,14 @@ public class Main
 				String title = movieTokens[1];
 				//Date releaseDate = movieTokens[2];
 				String url = movieTokens[3];
-				boolean[] genres =
-					{
-							convertToBool(Integer.parseInt(movieTokens[4])),
-							convertToBool(Integer.parseInt(movieTokens[5])),
-							convertToBool(Integer.parseInt(movieTokens[6])),
-							convertToBool(Integer.parseInt(movieTokens[7])),
-							convertToBool(Integer.parseInt(movieTokens[8])),
-							convertToBool(Integer.parseInt(movieTokens[9])),
-							convertToBool(Integer.parseInt(movieTokens[10])),
-							convertToBool(Integer.parseInt(movieTokens[11])),
-							convertToBool(Integer.parseInt(movieTokens[12])),
-							convertToBool(Integer.parseInt(movieTokens[13])),
-							convertToBool(Integer.parseInt(movieTokens[14])),
-							convertToBool(Integer.parseInt(movieTokens[15])),
-							convertToBool(Integer.parseInt(movieTokens[16])),
-							convertToBool(Integer.parseInt(movieTokens[17])),
-							convertToBool(Integer.parseInt(movieTokens[18])),
-							convertToBool(Integer.parseInt(movieTokens[19])),
-							convertToBool(Integer.parseInt(movieTokens[20])),
-							convertToBool(Integer.parseInt(movieTokens[21]))
-					};
-
-				if (title.isEmpty()) 
+				
+				if (title.isEmpty() ) 
 				{
 					throw new Exception("Invalid title: " + title);
 				}
 
 
-				Movie movie = new Movie(movieId,title,url,genres);
+				Movie movie = new Movie(movieId,title,url);
 				recc.addMovie(movie);
 
 

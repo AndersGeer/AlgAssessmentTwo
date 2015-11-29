@@ -3,14 +3,14 @@ package utils;
 public class AverageRating implements Comparable<AverageRating>
 {
 	private int movieId;
-	private float avgRating;
-	private int numberOfRatings;
-	private int totalRating;
+	private double avgRating;
+	private double numberOfRatings;
+	private double totalRating;
 	
 	public AverageRating(int movieId) 
 	{
 		this.movieId = movieId;
-		avgRating = 0;
+		avgRating = 0.0;
 		numberOfRatings = 0;
 		totalRating = 0;
 	}
@@ -19,19 +19,16 @@ public class AverageRating implements Comparable<AverageRating>
 	{
 		totalRating += specificRating;
 		numberOfRatings++;
-		if (numberOfRatings >= 2) 
-		{
-			avgRating = CalcAvg();
-		}
 	}
 
-	private float CalcAvg() 
+	private double CalcAvg() 
 	{
 		return totalRating/numberOfRatings;
 	}
 	
-	public float getAvg()
+	public double getAvg()
 	{
+		avgRating = CalcAvg();
 		return avgRating;
 	}
 	
@@ -47,7 +44,7 @@ public class AverageRating implements Comparable<AverageRating>
 		{
 			return 1;
 		}
-		else if (getAvg() < other.getAvg()) 
+		if (getAvg() < other.getAvg()) 
 		{
 			return -1;
 		}

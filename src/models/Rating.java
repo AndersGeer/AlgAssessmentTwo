@@ -5,7 +5,7 @@ import java.util.Date;
 import controllers.RecommenderAPI;
 import utils.ToJsonString;
 
-public class Rating 
+public class Rating implements Comparable<Rating>
 {
 	public static int ratingNumber = 1;
 	int ratingId;
@@ -15,17 +15,18 @@ public class Rating
 	private Date timestamp;
 	
 	
-	public Rating(User user, Movie movie, int rating, Date timestamp)
-	{
-		this.ratingId = ratingNumber++;
-		this.user = user;
-		this.movie = movie;
-		this.rating = rating;
-		this.timestamp = timestamp;
-	}
+	
 	
 	public Rating(User user, Movie movie ,int rating)
 	{
+		if (rating < -5) 
+		{
+			rating = -5;
+		}
+		else if (rating > 5) 
+		{
+			rating = 5;
+		}
 		this.ratingId = ratingNumber++;
 		this.user = user;
 		this.movie = movie;
@@ -86,6 +87,15 @@ public class Rating
 		} else if (!user.equals(other.user))
 			return false;
 		return true;
+	}
+
+
+
+
+	@Override
+	public int compareTo(Rating that) {
+		
+		return that.getMovieId() - this.getMovieId();
 	}
 	
 	

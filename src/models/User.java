@@ -61,7 +61,17 @@ public class User
 	{
 		ratings.add(r);
 	}
-
+	
+	public boolean hasUserSeenMovie(int movieId)
+	{
+		for (Rating rating : ratings) {
+			if (rating.getMovieId() == movieId) 
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	public Collection<Rating> getRatings() 
 	{
 		return ratings;

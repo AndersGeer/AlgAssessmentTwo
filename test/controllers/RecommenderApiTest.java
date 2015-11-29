@@ -160,12 +160,65 @@ public class RecommenderApiTest
 	@Test
 	public void testGetUserRatings()
 	{
-		HashSet<Rating> userList = (HashSet<Rating>) recc.getUserRatings(3);
+		Collection<Rating> userList = new ArrayList<Rating> (recc.getUserRatings(3));
 		for (Rating rating : ratingsByUserThree) 
 		{
 			assertTrue(userList.contains(rating));
 		}
 		assertEquals(ratingsByUserThree.length,userList.size());
+	}
+	
+	@Test
+	public void testTopTen()
+	{
+		Movie[] topThree = {
+				movies[1],
+				movies[2],
+				movies[3]
+		};
+		
+		Movie[] topFour = {
+				movies[1],
+				movies[2],
+				movies[3],
+				movies[5]
+		};
+		
+		Collection<Movie> movieResult = recc.getTopTen(3);
+		
+		assertEquals(topThree.length,movieResult.size());
+		
+		movieResult = recc.getTopTen(4);
+		for (Movie movie : topFour) {
+			assertTrue(movieResult.contains(movie));
+		}
+		assertEquals(topFour.length,movieResult.size());
+		
+	}
+	
+	@Test
+	public void testRecommender()
+	{	
+		
+/*		Please note this test will fail since the minimum movies to be added to the list 
+		was increased to be 5 and an infinite loop limiter was added, 
+		so an infinite loop would be avoided
+		
+		To make it pass, remove infinite loop limiter and reduce required numbers in the list to 1
+		
+				*/
+		
+		
+		
+		Collection<Movie> movieReccs = recc.getRecommendations(2);
+		Movie[] movieReccsArray = new Movie[movieReccs.size()];
+		movieReccs.toArray(movieReccsArray);
+		
+		for (Movie movie : movieReccsArray) {
+			System.out.println(movie);
+		}
+		
+		assertEquals(reccomendationForUserTwo.length,movieReccsArray.length);
 	}
 	@After
 	public void teardown()
