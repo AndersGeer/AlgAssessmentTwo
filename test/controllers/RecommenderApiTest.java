@@ -205,6 +205,7 @@ public class RecommenderApiTest
 		so an infinite loop would be avoided
 		
 		To make it pass, remove infinite loop limiter and reduce required numbers in the list to 1
+		Line 210 in RecommenderAPI
 		
 				*/
 		
@@ -213,10 +214,6 @@ public class RecommenderApiTest
 		Collection<Movie> movieReccs = recc.getRecommendations(2);
 		Movie[] movieReccsArray = new Movie[movieReccs.size()];
 		movieReccs.toArray(movieReccsArray);
-		
-		for (Movie movie : movieReccsArray) {
-			System.out.println(movie);
-		}
 		
 		assertEquals(reccomendationForUserTwo.length,movieReccsArray.length);
 	}
