@@ -12,26 +12,28 @@ public class Rating implements Comparable<Rating>
 	User user;
 	Movie movie;
 	int rating;
-	private Date timestamp;
 	
 	
 	
-	
-	public Rating(User user, Movie movie ,int rating)
+	public Rating(int id, User user, Movie movie ,int rating) 
 	{
-		if (rating < -5) 
+		this.ratingId = id;
+		this.user = user;
+		this.movie = movie;
+		this.rating = rating;
+		ratingNumber++;
+	}
+	
+	public Rating(User user, Movie movie ,int rating) throws Exception
+	{
+		if (rating < -5 || rating > 5) 
 		{
-			rating = -5;
-		}
-		else if (rating > 5) 
-		{
-			rating = 5;
+			throw new Exception("Rating has to be between -5 and 5");
 		}
 		this.ratingId = ratingNumber++;
 		this.user = user;
 		this.movie = movie;
 		this.rating = rating;
-		this.timestamp = new Date();
 	}
 	
 	

@@ -2,6 +2,7 @@ package models;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 
 import utils.ToJsonString;
 
@@ -30,8 +31,25 @@ public class User
 		ratings = new HashSet<Rating>();
 	}
 
-	public User(String firstName, String lastName, int age, String gender, String occupation, int zipCode) 
+	public User(String firstName, String lastName, int age, String gender, String occupation, int zipCode) throws Exception 
 	{
+		if (firstName.isEmpty() || lastName.isEmpty()) 
+		{
+			throw new Exception("Name has to be two parts and eiter cannot be empty");
+		}
+		if (age < 0 || age > 150) 
+		{
+			throw new Exception("Please input a valid age");
+		}
+		String lower = gender.toLowerCase();
+		if (!(lower.equals("m")|| lower.equals("f"))) 
+		{
+			throw new Exception("Please input a valid gender");
+		}
+		if (occupation.isEmpty()) 
+		{
+			throw new Exception("Please input a valid occupation");
+		}
 		this.userId = userNumber++;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -42,7 +60,25 @@ public class User
 		ratings = new HashSet<Rating>();
 	}
 
-	public User(String firstName, String lastName, int age, String gender, String occupation) {
+	public User(String firstName, String lastName, int age, String gender, String occupation) throws Exception 
+	{
+		if (firstName.isEmpty() || lastName.isEmpty()) 
+		{
+			throw new Exception("Name has to be two parts and either cannot be empty");
+		}
+		if (age < 0 || age > 150) 
+		{
+			throw new Exception("Please input a valid age");
+		}
+		String lower = gender.toLowerCase();
+		if (!(lower.equals("m")|| lower.equals("f"))) 
+		{
+			throw new Exception("Please input a valid gender");
+		}
+		if (occupation.isEmpty()) 
+		{
+			throw new Exception("Please input a valid occupation");
+		}
 		this.userId = userNumber++;
 		this.firstName = firstName;
 		this.lastName = lastName;

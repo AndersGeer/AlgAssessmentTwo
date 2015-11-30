@@ -60,7 +60,7 @@ public class Main
 	@Command(description="Create a new User")
 	public void createUser (@Param(name="first name") String firstName, 	@Param(name="last name") String lastName, 
 			@Param(name="age")      	int age,     		@Param(name="gender")  String gender,
-			@Param(name="Occupation") String occupation)
+			@Param(name="Occupation") String occupation) throws Exception
 	{
 		reccApi.addUser(firstName, lastName, age, gender,occupation);
 	}
@@ -86,7 +86,7 @@ public class Main
 	
 	@Command(description="Create a new Movie")
 	public void createMovie (@Param(name="Title") String title, 	@Param(name="Year") int year, 
-			@Param(name="Imdb Link")      	String imdbLink)
+			@Param(name="Imdb Link")      	String imdbLink) throws Exception
 	{
 		reccApi.addMovie(title, year, imdbLink);
 	}

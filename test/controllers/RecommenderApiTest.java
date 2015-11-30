@@ -10,7 +10,9 @@ import java.util.HashSet;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import models.Movie;
 import models.Rating;
@@ -22,6 +24,8 @@ public class RecommenderApiTest
 
 	private RecommenderAPI recc;
 
+
+	
 	@Before
 	public void setup() throws Exception
 	{
@@ -51,6 +55,8 @@ public class RecommenderApiTest
 		assertTrue(recc.getUsers().contains(u));	
 	}
 	
+	
+
 	@Test
 	public void testAddUser2() throws Exception
 	{
@@ -62,7 +68,7 @@ public class RecommenderApiTest
 	}
 	
 	@Test
-	public void testGetUser()
+	public void testGetUser() throws Exception
 	{
 		User us = new User("Anders", "Jakobsen", 23, "M", "Student", 12345);
 		recc.addUser(us);
@@ -115,7 +121,7 @@ public class RecommenderApiTest
 	}
 	
 	@Test
-	public void testAddMovie()
+	public void testAddMovie() throws Exception
 	{
 		//Problem with test
 		int movies = recc.getMovies().size();
@@ -126,7 +132,7 @@ public class RecommenderApiTest
 	}
 	
 	@Test
-	public void testAddMovie2()
+	public void testAddMovie2() throws Exception
 	{
 		int movies = recc.getMovies().size();
 		recc.addMovie("2015", 2011, "www.2012.org");
@@ -134,7 +140,7 @@ public class RecommenderApiTest
 	}
 	
 	@Test
-	public void testGetMovie()
+	public void testGetMovie() throws Exception
 	{
 		Movie mov = new Movie("2012",2011,"www.2012.org");
 		recc.addMovie(mov);

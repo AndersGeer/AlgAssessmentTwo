@@ -58,7 +58,7 @@ public class RecommenderAPI
 		userIndex.put(u.getUserId(), u);
 	}
 
-	public void addUser(String firstName,String lastName, int age,String gender,String occupation)
+	public void addUser(String firstName,String lastName, int age,String gender,String occupation) throws Exception
 	{
 		User user = new User(firstName,lastName,age,gender,occupation);
 		addUser(user);
@@ -117,7 +117,7 @@ public class RecommenderAPI
 		movieIndex.put(movie.getMovieId(), movie);		
 	}
 
-	public void addMovie(String title, int year, String url) 
+	public void addMovie(String title, int year, String url) throws Exception 
 	{
 		Movie movie = new Movie(title,year,url);
 		movieIndex.put(movie.getMovieId(), movie);

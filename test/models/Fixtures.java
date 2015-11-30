@@ -23,28 +23,28 @@ public class Fixtures
 
 	public static Rating[]ratings =
 		{
-				new Rating(users[0],movies[0],2),
-				new Rating(users[0],movies[1],4),
-				new Rating(users[0],movies[3],5),
-				new Rating(users[0],movies[4],1),
-				new Rating(users[0],movies[5],0),
+				new Rating(1,users[0],movies[0],2),
+				new Rating(2,users[0],movies[1],4),
+				new Rating(3,users[0],movies[3],5),
+				new Rating(4,users[0],movies[4],1),
+				new Rating(5,users[0],movies[5],0),
 				
-				new Rating(users[1],movies[0],5),
-				new Rating(users[1],movies[1],5),
-				new Rating(users[1],movies[3],2),
-				new Rating(users[1],movies[4],3),
+				new Rating(6,users[1],movies[0],5),
+				new Rating(7,users[1],movies[1],5),
+				new Rating(8,users[1],movies[3],2),
+				new Rating(9,users[1],movies[4],3),
 				
-				new Rating(users[2],movies[0],0),
-				new Rating(users[2],movies[2],5),
-				new Rating(users[2],movies[3],4),
-				new Rating(users[2],movies[4],4),
-				new Rating(users[2],movies[5],5),
+				new Rating(10,users[2],movies[0],0),
+				new Rating(11,users[2],movies[2],5),
+				new Rating(12,users[2],movies[3],4),
+				new Rating(13,users[2],movies[4],4),
+				new Rating(14,users[2],movies[5],5),
 				
-				new Rating(users[3],movies[0],2),
-				new Rating(users[3],movies[1],5),
-				new Rating(users[3],movies[3],1),
-				new Rating(users[3],movies[4],0),
-				new Rating(users[3],movies[5],5),
+				new Rating(15,users[3],movies[0],2),
+				new Rating(16,users[3],movies[1],5),
+				new Rating(17,users[3],movies[3],1),
+				new Rating(18,users[3],movies[4],0),
+				new Rating(19,users[3],movies[5],5)
 				
 				
 				//Movie 1, 4 votes, Total =  9 - avg = 2.25
