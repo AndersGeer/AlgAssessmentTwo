@@ -123,7 +123,6 @@ public class RecommenderApiTest
 	@Test
 	public void testAddMovie() throws Exception
 	{
-		//Problem with test
 		int movies = recc.getMovies().size();
 		Movie mov = new Movie("2012",2011,"www.2012.org");
 		recc.addMovie(mov);
@@ -210,7 +209,7 @@ public class RecommenderApiTest
 		was increased to be 5 and an infinite loop limiter was added, 
 		so an infinite loop would be avoided
 		
-		To make it pass, remove infinite loop limiter and reduce required numbers in the list to 1
+		To make it pass reduce required numbers in the list to 1
 		Line 210 in RecommenderAPI
 		
 				*/
@@ -227,9 +226,7 @@ public class RecommenderApiTest
 	public void teardown()
 	{
 		recc = null;
-/*		User.userNumber = 1;
-		Movie.movieNumber = 1;
-		Rating.ratingNumber = 1;*/
+
 	}
 	
 	

@@ -16,7 +16,7 @@ import utils.Serializer;
 public class Main 
 {
 	private RecommenderAPI reccApi;
-	static RecommenderAPI recc = new RecommenderAPI(new JSONSerializer(new File("datastore.json")));
+	
 	public Main() throws Exception
 	{
 		File datastore = new File("datastore.json");
@@ -27,7 +27,7 @@ public class Main
 		{
 			reccApi.load();
 		}
-		if (!datastore.exists()) 
+		else 
 		{
 			//Primary loads
 			usersRead();
@@ -68,7 +68,8 @@ public class Main
 	@Command(description="Get a user")
 	public void getUser(@Param(name="User Id") int id) 
 	{
-		reccApi.getUser(id);
+		User user = reccApi.getUser(id);
+		System.out.println(user);
 	}
 	
 	@Command(description="Delete a user")
@@ -94,7 +95,8 @@ public class Main
 	@Command(description="Get a Movie")
 	public void getMovie(@Param(name="Movie Id") int id) 
 	{
-		reccApi.getMovie(id);
+		Movie movie = reccApi.getMovie(id);
+		System.out.println(movie);
 	}
 	
 	@Command(description="Delete a Movie")
@@ -132,7 +134,7 @@ public class Main
 
 	
 
-	public static void usersRead() throws Exception
+	public void usersRead() throws Exception
 	{
 		File usersFile = new File("DataBig/users.dat");
 		In inUsers = new In(usersFile);
@@ -154,14 +156,6 @@ public class Main
 				String gender = userTokens[4];
 				String occupation = userTokens[5];
 				//int zipCode = Integer.parseInt(userTokens[6]);
-				if (firstName.isEmpty() || lastName.isEmpty()) 
-				{
-					throw new Exception("Invalid member name: " + firstName + ", " + lastName);
-				}
-				if (age < 0) 
-				{
-					throw new Exception("Invalid member age: "+age);
-				}
 				//				if (gender != "M" || gender != "F") 
 				//				{
 				//					throw new Exception("Invalid member gender: "+gender);
@@ -169,7 +163,7 @@ public class Main
 
 
 				User user = new User(firstName, lastName, age, gender, occupation);
-				recc.addUser(user);
+				reccApi.addUser(user);
 
 
 			}else
@@ -179,7 +173,7 @@ public class Main
 		}
 	}
 
-	public static void ratingsRead() throws Exception
+	public void ratingsRead() throws Exception
 	{
 		File ratingFile = new File("DataBig/ratings.dat");
 		In inRatings = new In(ratingFile);
@@ -204,18 +198,18 @@ public class Main
 				{
 					throw new Exception("Invalid rating: " + rating);
 				}
-				User user = recc.getUser(userId);
+				User user = reccApi.getUser(userId);
 				if (user == null) 
 				{
 					throw new Exception("User does not exist");
 				}
-				Movie movie = recc.getMovie(movieId);
+				Movie movie = reccApi.getMovie(movieId);
 				if (movie == null)
 				{
 					throw new Exception("Movie does not exist");	
 				}
 
-				recc.addRating(userId,movieId,rating);
+				reccApi.addRating(userId,movieId,rating);
 
 
 			}else
@@ -225,7 +219,7 @@ public class Main
 		}
 	}
 
-	public static void moviesRead() throws Exception
+	public void moviesRead() throws Exception
 	{
 		File moviesFile = new File("DataBig/items.dat");
 		In inMovies = new In(moviesFile);
@@ -253,7 +247,7 @@ public class Main
 
 
 				Movie movie = new Movie(movieId,title,url);
-				recc.addMovie(movie);
+				reccApi.addMovie(movie);
 
 
 			}else

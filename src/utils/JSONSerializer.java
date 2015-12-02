@@ -12,6 +12,8 @@ import javax.tools.DocumentationTool.Location;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 
+import models.Movie;
+import models.Rating;
 import models.User;
 
 public class JSONSerializer implements Serializer
@@ -43,6 +45,8 @@ public class JSONSerializer implements Serializer
 		{
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.alias("user", User.class);
+			xstream.alias("rating", Rating.class);
+			xstream.alias("Movie", Movie.class);
 			is = xstream.createObjectInputStream(new FileReader(file));
 			stack = (Stack) is.readObject();
 		}
@@ -63,6 +67,8 @@ public class JSONSerializer implements Serializer
 		{
 			XStream xstream = new XStream(new JettisonMappedXmlDriver());
 			xstream.alias("user", User.class);
+			xstream.alias("rating", Rating.class);
+			xstream.alias("Movie", Movie.class);
 			os = xstream.createObjectOutputStream(new FileWriter(file));
 			os.writeObject(stack);
 		}

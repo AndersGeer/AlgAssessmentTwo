@@ -189,15 +189,17 @@ public class RecommenderAPI
 		int[] similarityIndex = new int[userIndex.values().size()];
 		ArrayList<User> userList = new ArrayList<>(userIndex.values());
 		userList.toArray(users);
+		
+		//Goes through all users and compares them to get a similarity number.
 		for (int i = 0; i < users.length; i++) 
 		{
 			if (users[i].getUserId() != userId) 
 			{
 				similarityIndex[i] = compareRatings(userId,users[i].getUserId());
 			}
-
-
 		}
+		
+		
 		Collection<Movie> reccomendationsForUser = new ArrayList<>();
 
 
@@ -230,6 +232,7 @@ public class RecommenderAPI
 		int highestSimilarity = 0;
 		int highestSimilarityIndex = -1;
 
+		//Finds the index where the highest similary is.
 		for (int i = 0; i < similarityIndex.length; i++) 
 		{
 			if (similarityIndex[i] > highestSimilarity && similarityIndex[i] < formerMaxSimilarity) 
@@ -238,13 +241,19 @@ public class RecommenderAPI
 				highestSimilarityIndex = i;
 			}
 		}
-		
+		//Gets the user from the highest similarity Index
 		Collection<Rating> similarUserRatings = users[highestSimilarityIndex].getRatings();
 
 		Collection<Movie> reccomendationsForUser = new ArrayList<>();
 		User user = userIndex.get(userId);
 		for (Rating rating : similarUserRatings) 
 		{
+			/*
+			 * 
+			 * Only adds movies, the similar user has rated more than 4 stars, this ensures movies 
+			 * that are highly likely to be liked and only if our user hasn't already rated the movie
+			 * 
+			*/
 			if (!user.hasUserSeenMovie(rating.getMovieId()) && rating.getRating() >= 4) 
 			{
 				reccomendationsForUser.add(movieIndex.get(rating.getMovieId()));
@@ -267,15 +276,19 @@ public class RecommenderAPI
 
 		Rating[] compareRatingsArray = new Rating[compareUserRatings.size()];
 		compareUserRatings.toArray(compareRatingsArray);
+		
+		//Goes through each rating in our user.
 		for (Rating rating : userRatings) 
 		{
 
 			int movieId = rating.getMovieId();
 
+			//Compares each one to each in the other user's collection
 			for (int i = 0; i < compareRatingsArray.length; i++) 
 			{
 				if (compareRatingsArray[i].getMovieId() == movieId) 
 				{	
+					//Adds similarity based on the difference in their ratings.
 					int similarRating = Math.abs(compareRatingsArray[i].getRating()-rating.getRating());
 					switch (similarRating) 
 					{
