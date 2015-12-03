@@ -126,12 +126,18 @@ public class Main
 		System.out.println(topTen);
 	}
 	@Command(description="Get recommendations for user")
-	public void getRatingsForUser(@Param(name="User Id") int userId)
+	public void getRecommendationsForUser(@Param(name="User Id") int userId)
 	{
 		Collection<Movie> recommendedMovies = reccApi.getRecommendations(userId);
 		System.out.println(recommendedMovies);
 	}
-
+	
+	@Command(description="Get A users Ratings")
+	public void getUserRatings(@Param(name="User Id") int userId)
+	{
+		Collection<Rating> userRatings = reccApi.getUserRatings(userId);
+		System.out.println(userRatings);
+	}
 	
 
 	public void usersRead() throws Exception
